@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  ngnix:
+    build: ./core/ngnix
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+
+  app:
+    build: ./core
+    command: python manage.py runserver 0.0.0.0:8001
+
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+
+volumes:
+  static_volume:
+  media_volume:

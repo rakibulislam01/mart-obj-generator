@@ -1,6 +1,7 @@
-from .views import TestAPIView
+from .views import GenerateObjAPIView, ReportAPIView, HomeView
 from django.urls import path
 
 urlpatterns = [
-    path('', TestAPIView.as_view(), name='test_view'),
+    path('generate-obj/', GenerateObjAPIView.as_view(), name='generate_obj'),
+    path('report/', ReportAPIView.as_view(), name='report'),
 ]
