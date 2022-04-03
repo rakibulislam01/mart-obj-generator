@@ -20,9 +20,9 @@ def get_report():
 
 def generate_file(result: str):
     try:
-        f = open(f"{settings.BASE_DIR}/media/data/objects.txt", 'w')
-        f.write(result)
-        f.close()
+        file = open(f"{settings.BASE_DIR}/media/data/objects.txt", 'w')
+        file.write(result)
+        file.close()
     except IOError as e:
         logger.error(f"{e}. Time: {datetime.datetime.now()}")
         return {'integers': 0, 'alphanumerics': 0, 'string': 0, 'real_number': 0}
@@ -36,3 +36,11 @@ def generate_report(result: dict):
     except IOError as e:
         logger.error(f"{e}. Time: {datetime.datetime.now()}")
         return {'integers': 0, 'alphanumerics': 0, 'string': 0, 'real_number': 0}
+
+
+def erase_file():
+    file = open(f"{settings.BASE_DIR}/media/data/objects.txt", 'w')
+    file.close()
+    report_file = open(f"{settings.BASE_DIR}/media/data/report.json", 'w')
+    report_file.close()
+    return None

@@ -6,9 +6,8 @@ from rest_framework import views
 from rest_framework.response import Response
 
 from .services.obj_generator import ObjGenerator
-from .services.output import generate_file, generate_report, get_report
+from .services.output import get_report
 
-TWO_MB = 2000000
 logger = logging.getLogger(__name__)
 
 
@@ -19,11 +18,7 @@ class GenerateObjAPIView(views.APIView):
     def get(self, request):
         try:
             generator = ObjGenerator()
-            object_string = str(generator.get_object())
-            while len(object_string.encode('utf-8')) <= TWO_MB:
-                object_string += ', ' + str(generator.get_object())
-            generate_file(object_string)
-            generate_report(generator.generate_report())
+            generator.generate_obj_process()
             return Response({
                 "file_link": request.build_absolute_uri('/media/data/objects.txt')
             })
