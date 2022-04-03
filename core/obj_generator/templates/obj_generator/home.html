@@ -1,0 +1,101 @@
+{% extends "obj_generator/base.html" %}
+
+{% block content %}
+    <div class="text-center content-section">
+        <a href="" class="btn btn-primary" id="get_report" onclick="generateObj(); return false;">Generate object</a>
+    </div>
+    <div id="loading" class="text-center rounded mx-auto">
+        <img src="https://wirres.net/sitedesign/wirres2/images/spiral.gif" alt="" border="0"/><p>Please Wait!</p>
+    </div>
+    <div class="content-section text-center" id="file-link"></div>
+
+    <div class="text-center content-section">
+        <a href="" class="btn btn-primary" id="generate_obj" onclick="getReport(); return false;">Reports</a>
+    </div>
+
+    <div class="content-section text-center">
+        <div id="obj-container"></div>
+    </div>
+
+
+{% endblock %}
+
+{% block script %}
+
+    <script>
+        function attach_object(object_type_dict){
+            const alphanumerics = object_type_dict['alphanumerics'];
+            const integers = object_type_dict['integers'];
+            const real_number = object_type_dict['real_number'];
+            const string = object_type_dict['string'];
+            const ReportFormattedHtml = `<div><h4>Alphabetical Strings: <small>${alphanumerics}</small></h4>
+                                        <h4>Real Numbers: <small>${integers}</small></h4>
+                                        <h4>Integers: <small>${real_number}</small></h4>
+                                        <h4>Alphanumerics: <small>${string}</small></h4></div> <\hr>`;
+            $("#obj-container").html(ReportFormattedHtml)
+        }
+
+        function report(){
+            const url = '/report/';
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                type: 'GET',
+                headers: {},
+                data : {},
+                success: function (data) {
+                    attach_object(data, false)
+                },
+                error: function (data, jqXhr, textStatus, errorThrown) {
+                    document.getElementById("file-link").innerText = 'No data';
+                }
+            });
+        }
+
+        function objGenerator(){
+            const url = '/generate-obj/';
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                type: 'GET',
+                headers: {},
+                data : {},
+                success: function (data) {
+                    hideLoading();
+                    console.log(data)
+                    $("#file-link").html(`<a href="${data['file_link']}" id="download_link" download>Objects file link!</a>`)
+                },
+                error: function (data, jqXhr, textStatus, errorThrown) {
+                    hideLoading();
+                    document.getElementById("obj-container").innerText = 'No link';
+                }
+            });
+        }
+
+        function getReport(){
+                report();
+            }
+
+        function generateObj(){
+            showLoading();
+            objGenerator()
+        }
+
+        $("#download_link").click(function (e) {
+            e.preventDefault(e);
+            window.location.href = $("#download_link").attr("href");
+        });
+
+
+        function showLoading() {
+            $("#loading").show();
+        }
+
+        function hideLoading() {
+            $("#loading").hide();
+        }
+
+
+    </script>
+
+{% endblock %}

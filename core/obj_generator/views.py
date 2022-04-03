@@ -1,6 +1,7 @@
 import datetime
 import logging
 
+from django.views.generic import TemplateView
 from rest_framework import views
 from rest_framework.response import Response
 
@@ -42,3 +43,7 @@ class ReportAPIView(views.APIView):
         except Exception as e:
             logger.error(f"{e}. Time: {datetime.datetime.now()}")
             return Response(str(e))
+
+
+class HomeView(TemplateView):
+    template_name = 'obj_generator/home.html'
