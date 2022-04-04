@@ -4,16 +4,20 @@
     <div class="text-center content-section">
         <a href="" class="btn btn-primary" id="get_report" onclick="generateObj(); return false;">Generate object</a>
     </div>
-    <div id="loading" class="text-center rounded mx-auto">
-        <img src="https://wirres.net/sitedesign/wirres2/images/spiral.gif" alt="" border="0"/><p>Please Wait!</p>
+    <div id="loading" class="text-center rounded mx-auto font-italic">
+        <img src="https://wirres.net/sitedesign/wirres2/images/spiral.gif" alt=""/><p class="text-info">Please wait !</p>
     </div>
-    <div class="content-section text-center" id="file-link"></div>
+
+    <p id = "loading-text" class="text-center text-uppercase small" style="display: none">After generating the object, the file link will be appeared here</p>
+    <div class="content-section text-center" style="padding: 20px" id="file-link">
+    </div>
 
     <div class="text-center content-section">
         <a href="" class="btn btn-primary" id="generate_obj" onclick="getReport(); return false;">Reports</a>
     </div>
 
     <div class="content-section text-center">
+        <h4 class="text-uppercase text-info">Report:</h4>
         <div id="obj-container"></div>
     </div>
 
@@ -28,10 +32,10 @@
             const integers = object_type_dict['integers'];
             const real_number = object_type_dict['real_number'];
             const string = object_type_dict['string'];
-            const ReportFormattedHtml = `<div><h4>Alphabetical Strings: <small>${alphanumerics}</small></h4>
-                                        <h4>Real Numbers: <small>${integers}</small></h4>
-                                        <h4>Integers: <small>${real_number}</small></h4>
-                                        <h4>Alphanumerics: <small>${string}</small></h4></div> <\hr>`;
+            const ReportFormattedHtml = `<\hr><div class="font-italic"><h4>Alphabetical Strings: <small>${alphanumerics}</small></h4>
+                                        <h4 style="color: blue">Real Numbers: <small>${integers}</small></h4>
+                                        <h4 style="color: teal">Integers: <small>${real_number}</small></h4>
+                                        <h4 style="color: green">Alphanumerics: <small>${string}</small></h4></div> <\hr>`;
             $("#obj-container").html(ReportFormattedHtml)
         }
 
@@ -47,7 +51,7 @@
                     attach_object(data, false)
                 },
                 error: function (data, jqXhr, textStatus, errorThrown) {
-                    document.getElementById("file-link").innerText = 'No data';
+                    document.getElementById("obj-container").innerText = 'No data';
                 }
             });
         }
@@ -63,11 +67,11 @@
                 success: function (data) {
                     hideLoading();
                     console.log(data)
-                    $("#file-link").html(`<a href="${data['file_link']}" id="download_link" download>Objects file link!</a>`)
+                    $("#file-link").html(`<a href="${data['file_link']}" id="download_link" download>Objects File Link</a>`)
                 },
                 error: function (data, jqXhr, textStatus, errorThrown) {
                     hideLoading();
-                    document.getElementById("obj-container").innerText = 'No link';
+                    document.getElementById("file-link").innerText = 'No link';
                 }
             });
         }
@@ -86,13 +90,14 @@
             window.location.href = $("#download_link").attr("href");
         });
 
-
         function showLoading() {
             $("#loading").show();
+            $("#loading-text").show()
         }
 
         function hideLoading() {
             $("#loading").hide();
+            $("#loading-text").hide()
         }
 
 
