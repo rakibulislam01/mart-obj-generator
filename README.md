@@ -58,7 +58,7 @@ GET /api/generate-obj/
 
 **Sample output:**
 
-```json
+```
     HTTP 200 OK
     Allow: GET, HEAD, OPTIONS
     Content-Type: application/json
@@ -76,7 +76,7 @@ GET /api/generate-obj/
 ```
 **Sample output:**
     
-```json
+```
     HTTP 200 OK
     Allow: GET, HEAD, OPTIONS
     Content-Type: application/json
