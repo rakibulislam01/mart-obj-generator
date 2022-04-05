@@ -13,11 +13,11 @@ The output should be 2MB in size. And show the total count of generated objects.
 
 ## Getting Started
 
-### Prerequisites
-
+### Setup Process
+> ❗Make sure You have python3 and pip installed on your machine.
 - Python 3.8 or higher
 - Django
-- Docker
+- Docker  -> [Docker install process](https://docs.docker.com/engine/install/ubuntu/)
 
 ### Project setup
 
@@ -30,28 +30,27 @@ $ cd omni-obj-generator
 ```
 ## Running the Docker Container
 
-We have the Dockerfile created in above section. Now, we will use the Dockerfile to create the image of the omni-obj-generator app and then start the omni-obj-generator app container.
-
+We set up Docker to run this project. Now we will run Protest with Docker.
+Build and run docker image using docker compose.
 
 ```sh
 $ docker-compose up --build
-
 ```
 
-## Functional test
+## Running Test
 ```sh
 $ docker container exec -it omni-obj-generator_app_1 sh
 $ python -m pytest
 
 ```
 ### Home page
-Here you will find the UI of the object generator application.
+Here you will find the UI of the object generator application in this URL.
 
     http://127.0.0.1/
 
-## API End Point
+## API End Points
 
-To Generate random object please run following api endpoint in any api client.
+### To Generate random object:
 
 ```sh
 GET /api/generate-obj/
@@ -59,6 +58,7 @@ GET /api/generate-obj/
 
 **Sample output:**
 
+```json
     HTTP 200 OK
     Allow: GET, HEAD, OPTIONS
     Content-Type: application/json
@@ -67,14 +67,16 @@ GET /api/generate-obj/
     {
         "file_link": "http://127.0.0.1/media/data/objects.txt"
     }
+```
 
-To get the report of random object please run following api endpoint in any api client.
+### To generate report:
 
 ```sh
  GET /api/report/
 ```
 **Sample output:**
     
+```json
     HTTP 200 OK
     Allow: GET, HEAD, OPTIONS
     Content-Type: application/json
@@ -85,3 +87,4 @@ To get the report of random object please run following api endpoint in any api 
         "string": 0,
         "real_number": 0
     }
+```
