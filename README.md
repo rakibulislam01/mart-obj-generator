@@ -23,10 +23,10 @@ The output should be 2MB in size. And show the total count of generated objects.
 
 ```sh
 # clone the repo
-$ git clone https://github.com/rakibulislam01/omni-obj-generator.git
+$ git clone https://github.com/rakibulislam01/mart-obj-generator.git
 
 # move to the project folder
-$ cd omni-obj-generator
+$ cd mart-obj-generator
 ```
 ## Running the Docker Container
 
@@ -39,8 +39,8 @@ $ docker-compose up --build
 
 ## Running Test
 ```sh
-$ docker container exec -it omni-obj-generator_app_1 sh
-$ python -m pytest
+$ docker container exec -it mart-obj-generator_app_1 sh
+$ python manage.py test
 
 ```
 ### Home page
@@ -49,6 +49,9 @@ Here you will find the UI of the object generator application in this URL.
     http://127.0.0.1/
 
 ## API End Points
+
+## [Swagger Documentation](http://127.0.0.1/swagger/)
+![](core/media/data/obj_generator.png)
 
 ### To Generate random object:
 
