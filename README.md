@@ -48,6 +48,9 @@ Here you will find the UI of the object generator application in this URL.
 
     http://127.0.0.1/
 
+### Sample UI
+![](core/media/data/ui.png)
+
 ## API End Points
 
 ## [Swagger Documentation](http://127.0.0.1/swagger/)
